@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PotatoServer;
 using PotatoServer.Database.Models;
+using PotatoServer.Filters.HandleException;
 using ShoppingListApp.Database;
 
 namespace ShoppingListApp
@@ -25,8 +26,13 @@ namespace ShoppingListApp
         {
             services.SetupCors("http://localhost:3000");
             services.AddControllers();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(typeof(HandleExceptionFilterAttribute));
+            });
             services.AddAutoMapper(typeof(Startup));
             services.SetupIdentity<User, ShoppingListDbContext>(Configuration);
+            services.SetupAuthentication(Configuration);
             services.AddDbContext<ShoppingListDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ShoppingList")));
             base.ConfigureServices(services);
         }
