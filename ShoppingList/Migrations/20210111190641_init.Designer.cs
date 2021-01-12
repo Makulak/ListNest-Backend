@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ShoppingList.Database;
+using ShoppingListApp.Database;
 
-namespace ShoppingList.Migrations
+namespace ShoppingListApp.Migrations
 {
     [DbContext(typeof(ShoppingListDbContext))]
     [Migration("20210111190641_init")]

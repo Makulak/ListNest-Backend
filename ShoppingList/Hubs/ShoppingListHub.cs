@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace ShoppingList.Hubs
+namespace ShoppingListApp.Hubs
 {
     public partial class ShoppingListHub : Hub
     {

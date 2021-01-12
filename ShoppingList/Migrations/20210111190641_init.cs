@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ShoppingList.Migrations
+namespace ShoppingListApp.Migrations
 {
     public partial class init : Migration
     {

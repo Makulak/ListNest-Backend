@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,9 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PotatoServer;
 using PotatoServer.Database.Models;
-using ShoppingList.Database;
+using ShoppingListApp.Database;
 
-namespace ShoppingList
+namespace ShoppingListApp
 {
     public class Startup : BaseStartup
     {
@@ -24,7 +25,7 @@ namespace ShoppingList
         {
             services.SetupCors("http://localhost:3000");
             services.AddControllers();
-
+            services.AddAutoMapper(typeof(Startup));
             services.SetupIdentity<User, ShoppingListDbContext>(Configuration);
             services.AddDbContext<ShoppingListDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ShoppingList")));
             base.ConfigureServices(services);

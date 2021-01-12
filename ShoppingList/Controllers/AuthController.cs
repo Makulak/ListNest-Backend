@@ -6,7 +6,7 @@ using PotatoServer;
 using PotatoServer.Controllers;
 using PotatoServer.Database.Models;
 
-namespace ShoppingList.Controllers
+namespace ShoppingListApp.Controllers
 {
     [Route("api/auth")]
     public class AuthController : BaseAuthController<User>
