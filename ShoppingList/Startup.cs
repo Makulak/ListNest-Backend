@@ -9,6 +9,9 @@ using PotatoServer;
 using PotatoServer.Database.Models;
 using PotatoServer.Filters.HandleException;
 using ShoppingListApp.Database;
+using ShoppingListApp.Hubs;
+using ShoppingListApp.Services.Implementations;
+using ShoppingListApp.Services.Interfaces;
 
 namespace ShoppingListApp
 {
@@ -31,9 +34,14 @@ namespace ShoppingListApp
                 options.Filters.Add(typeof(HandleExceptionFilterAttribute));
             });
             services.AddAutoMapper(typeof(Startup));
+            services.AddSignalR();
             services.SetupIdentity<User, ShoppingListDbContext>(Configuration);
             services.SetupAuthentication(Configuration);
-            services.AddDbContext<ShoppingListDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ShoppingList")));
+            services.AddDbContext<ShoppingListDbContext>(o => o.EnableSensitiveDataLogging(IsDevelopement)
+            .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly("ShoppingList")));
+
+            services.AddTransient<IShoppingListService, ShoppingListService>();
             base.ConfigureServices(services);
         }
 
@@ -41,9 +49,7 @@ namespace ShoppingListApp
         public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
             app.UseHttpsRedirection();
             app.UseRouting();
@@ -54,8 +60,8 @@ namespace ShoppingListApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ShoppingListHub>("/hubs/shopping-list");
             });
-
             base.Configure(app, env);
         }
     }

@@ -9,10 +9,12 @@ namespace ShoppingListApp.Database.Models
     {
         public string Name { get; set; }
         public float Quantity { get; set; }
+        public int ShoppingListId { get; set; }
 
         public int Id { get; set; }
         public DateTime? Created { get; set; }
         public DateTime? Changed { get; set; }
+        public bool IsDeleted { get; set; }
     }
 
     public class ShoppingListItemConfiguration : IEntityTypeConfiguration<ShoppingListItem>

@@ -15,6 +15,7 @@ namespace ShoppingListApp.Database.Models
         public int Id { get; set; }
         public DateTime? Created { get; set; }
         public DateTime? Changed { get; set; }
+        public bool IsDeleted { get; set; }
     }
 
     public class ShoppingListConfiguration : IEntityTypeConfiguration<ShoppingList>
