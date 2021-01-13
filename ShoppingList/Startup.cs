@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using PotatoServer.Database.Models;
 using PotatoServer.Filters.HandleException;
 using ShoppingListApp.Database;
 using ShoppingListApp.Hubs;
+using ShoppingListApp.Services;
 using ShoppingListApp.Services.Implementations;
 using ShoppingListApp.Services.Interfaces;
 
@@ -37,9 +39,11 @@ namespace ShoppingListApp
             services.AddSignalR();
             services.SetupIdentity<User, ShoppingListDbContext>(Configuration);
             services.SetupAuthentication(Configuration);
-            services.AddDbContext<ShoppingListDbContext>(o => o.EnableSensitiveDataLogging(IsDevelopement)
-            .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly("ShoppingList")));
+            services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
+            services.AddDbContext<ShoppingListDbContext>(options =>
+                options.EnableSensitiveDataLogging(IsDevelopement)
+                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                builder => builder.MigrationsAssembly("ShoppingList")));
 
             services.AddTransient<IShoppingListService, ShoppingListService>();
             base.ConfigureServices(services);
@@ -60,7 +64,7 @@ namespace ShoppingListApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ShoppingListHub>("/hubs/shopping-list");
+                endpoints.MapHub<ShoppingListHub>("/hubs/shopping-lists");
             });
             base.Configure(app, env);
         }

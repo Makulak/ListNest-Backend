@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using PotatoServer.Exceptions;
 using PotatoServer.Helpers.Extensions;
