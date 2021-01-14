@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace ShoppingListApp.Services.Interfaces
 {
-    public interface IShoppingListService
+    public interface IShoppingListItemService
     {
-        Task<ShoppingList> GetAsync(int shoppingListId, string userId);
+        Task<ShoppingListItem> GetAsync(int shoppingListId);
     }
 }

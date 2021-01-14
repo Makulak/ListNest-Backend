@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using PotatoServer.Exceptions;
 using PotatoServer.Helpers.Extensions;
@@ -11,6 +10,7 @@ using ShoppingListApp.ViewModels;
 using ShoppingListApp.ViewModels.Input;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ShoppingListApp.Hubs
@@ -19,14 +19,17 @@ namespace ShoppingListApp.Hubs
     {
         private readonly ShoppingListDbContext _dbcontext;
         private readonly IShoppingListService _shoppingListService;
+        private readonly IShoppingListItemService _shoppingListItemService;
         private readonly IMapper _mapper;
 
         public ShoppingListHub(ShoppingListDbContext dbcontext,
             IShoppingListService shoppingListService,
+            IShoppingListItemService shoppingListItemService,
             IMapper mapper)
         {
             _dbcontext = dbcontext;
             _shoppingListService = shoppingListService;
+            _shoppingListItemService = shoppingListItemService;
             _mapper = mapper;
         }
 
@@ -41,8 +44,7 @@ namespace ShoppingListApp.Hubs
 
         public async Task GetShoppingListItems(int shoppingListId, int? skip, int? take)
         {
-            var shoppingList = await _shoppingListService.GetShoppingListAsync(shoppingListId, UserIdentityName);
-
+            var shoppingList = await _shoppingListService.GetAsync(shoppingListId, UserIdentityId);
             if (shoppingList == null)
                 throw new NotFoundException("Shopping list does not exist, or You don't have permissions to view it."); // TODO: Message
 
@@ -53,9 +55,37 @@ namespace ShoppingListApp.Hubs
             await Clients.Caller.UpdateShoppingListItemsAsync(items);
         }
 
-        public async Task AddShoppingListItem(ShoppingListItemInputVm shoppingListItem)
+        public async Task CreateShoppingListItem(ShoppingListItemInputVm shoppingListItemVm)
         {
-            //await Clients.Group($"ShoppingList_{shoppingListId}").SendAsync("updateShoppingListItems", items);
+            var shoppingList = await _shoppingListService.GetAsync(shoppingListItemVm.ShoppingListId, UserIdentityId);
+            if (shoppingList == null)
+                throw new NotFoundException("Shopping list does not exist, or You don't have permissions to view it."); // TODO: Message
+
+            var shoppingListItem = _mapper.Map<ShoppingListItemInputVm, ShoppingListItem>(shoppingListItemVm);
+
+            await _dbcontext.ShoppingListItems.AddAsync(shoppingListItem);
+            await _dbcontext.SaveChangesAsync();
+
+            var addedShoppingListItemVm = _mapper.Map<ShoppingListItem, ShoppingListItemVm>(shoppingListItem);
+
+            await Clients.Group($"ShoppingList_{shoppingListItemVm.ShoppingListId}").AddShoppingListItemAsync(addedShoppingListItemVm);
+        }
+
+        public async Task DeleteShoppingListItem(int shoppingListItemId)
+        {
+            var shoppingListItem = await _shoppingListItemService.GetAsync(shoppingListItemId);
+            if (shoppingListItem == null)
+                throw new NotFoundException("Shopping list item does not exist, or You don't have permissions to view it."); // TODO: Message
+
+            var shoppingList = await _shoppingListService.GetAsync(shoppingListItem.ShoppingListId, UserIdentityId);
+            if (shoppingList == null)
+                throw new NotFoundException("Shopping list does not exist, or You don't have permissions to view it."); // TODO: Message
+
+            shoppingListItem.IsDeleted = true;
+            _dbcontext.Update(shoppingListItem);
+            await _dbcontext.SaveChangesAsync();
+
+            await Clients.Group($"ShoppingList_{shoppingList.Id}").DeleteShoppingListItemAsync(shoppingListItemId);
         }
 
         public override async Task OnConnectedAsync()
@@ -68,6 +98,7 @@ namespace ShoppingListApp.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
+        private string UserIdentityId => ((ClaimsIdentity)Context.User.Identity).Claims.SingleOrDefault(claim => claim.Type == "UserId").Value;
         private string UserIdentityName => Context.User.Identity.Name;
     }
 }

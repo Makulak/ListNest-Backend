@@ -49,7 +49,7 @@ namespace ShoppingListApp.Controllers
         public async Task<IActionResult> GetShoppingList(int shoppingListId)
         {
             var userId = User.FindFirstValue("UserId");
-            var shoppingList = await _shoppingListService.GetShoppingListAsync(shoppingListId, userId);
+            var shoppingList = await _shoppingListService.GetAsync(shoppingListId, userId);
 
             if (shoppingList == null)
                 throw new NotFoundException("Shopping list does not exist, or You don't have permissions to view it."); // TODO: Message
@@ -75,7 +75,7 @@ namespace ShoppingListApp.Controllers
         public async Task<IActionResult> DeleteShoppingList(int shoppingListId)
         {
             var userId = User.FindFirstValue("UserId");
-            var shoppingList = await _shoppingListService.GetShoppingListAsync(shoppingListId, userId);
+            var shoppingList = await _shoppingListService.GetAsync(shoppingListId, userId);
 
             if (shoppingList == null)
                 throw new NotFoundException("Shopping list does not exist, or You don't have permissions to view it."); // TODO: Message

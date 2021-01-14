@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using PotatoServer;
 using PotatoServer.Database.Models;
 using PotatoServer.Filters.HandleException;
+using PotatoServer.Filters.HandleExceptionHub;
 using ShoppingListApp.Database;
 using ShoppingListApp.Hubs;
 using ShoppingListApp.Services;
@@ -36,16 +37,20 @@ namespace ShoppingListApp
                 options.Filters.Add(typeof(HandleExceptionFilterAttribute));
             });
             services.AddAutoMapper(typeof(Startup));
-            services.AddSignalR();
+            services.AddSignalR(hubOptions => {
+                hubOptions.AddFilter<HandleExceptionHubFilter>();
+                hubOptions.EnableDetailedErrors = IsDevelopement;
+                });
             services.SetupIdentity<User, ShoppingListDbContext>(Configuration);
             services.SetupAuthentication(Configuration);
-            services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
+            //services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
             services.AddDbContext<ShoppingListDbContext>(options =>
                 options.EnableSensitiveDataLogging(IsDevelopement)
                  .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 builder => builder.MigrationsAssembly("ShoppingList")));
 
             services.AddTransient<IShoppingListService, ShoppingListService>();
+            services.AddTransient<IShoppingListItemService, ShoppingListItemService>();
             base.ConfigureServices(services);
         }
 

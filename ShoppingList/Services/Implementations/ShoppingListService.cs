@@ -16,7 +16,7 @@ namespace ShoppingListApp.Services.Implementations
             _dbContext = dbContext;
         }
 
-        public async Task<ShoppingList> GetShoppingListAsync(int shoppingListId, string userId)
+        public async Task<ShoppingList> GetAsync(int shoppingListId, string userId)
         {
             return await _dbContext.ShoppingLists
                 .Include(shoppingList => shoppingList.Users)
