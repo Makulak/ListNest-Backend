@@ -58,7 +58,7 @@ namespace ShoppingListApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateShoppingList([FromBody] ShoppingListInputVm shoppingListVm)
+        public async Task<IActionResult> CreateShoppingList([FromBody] ShoppingListCreateVm shoppingListVm)
         {
             var userId = User.FindFirstValue("UserId");
             var shoppingList = _mapper.Map<ShoppingList>(shoppingListVm);

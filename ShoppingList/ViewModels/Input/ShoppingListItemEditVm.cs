@@ -2,11 +2,13 @@
 
 namespace ShoppingListApp.ViewModels.Input
 {
-    public class ShoppingListInputVm
+    public class ShoppingListItemEditVm
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
-
-        public string[] UserIds { get; set; }
+        [Required]
+        public float Quantity { get; set; }
     }
 }

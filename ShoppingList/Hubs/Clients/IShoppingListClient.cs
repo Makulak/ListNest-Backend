@@ -8,6 +8,7 @@ namespace ShoppingListApp.Hubs.Clients
     {
         Task UpdateShoppingListItemsAsync(PagedViewModel<ShoppingListItemVm> shoppingListItems);
         Task AddShoppingListItemAsync(ShoppingListItemVm shoppingListItem);
+        Task UpdateShoppingListItemAsync(ShoppingListItemVm shoppingListItem);
         Task DeleteShoppingListItemAsync(int shoppingListItemId);
     }
 }

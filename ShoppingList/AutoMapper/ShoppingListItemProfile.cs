@@ -14,7 +14,7 @@ namespace ShoppingListApp.AutoMapper
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
 
-            CreateMap<ShoppingListItemInputVm, ShoppingListItem>()
+            CreateMap<ShoppingListItemCreateVm, ShoppingListItem>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
         }

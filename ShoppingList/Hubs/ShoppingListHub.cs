@@ -55,13 +55,13 @@ namespace ShoppingListApp.Hubs
             await Clients.Caller.UpdateShoppingListItemsAsync(items);
         }
 
-        public async Task CreateShoppingListItem(ShoppingListItemInputVm shoppingListItemVm)
+        public async Task CreateShoppingListItem(ShoppingListItemCreateVm shoppingListItemVm)
         {
             var shoppingList = await _shoppingListService.GetAsync(shoppingListItemVm.ShoppingListId, UserIdentityId);
             if (shoppingList == null)
                 throw new NotFoundException("Shopping list does not exist, or You don't have permissions to view it."); // TODO: Message
 
-            var shoppingListItem = _mapper.Map<ShoppingListItemInputVm, ShoppingListItem>(shoppingListItemVm);
+            var shoppingListItem = _mapper.Map<ShoppingListItemCreateVm, ShoppingListItem>(shoppingListItemVm);
 
             await _dbcontext.ShoppingListItems.AddAsync(shoppingListItem);
             await _dbcontext.SaveChangesAsync();
@@ -86,6 +86,26 @@ namespace ShoppingListApp.Hubs
             await _dbcontext.SaveChangesAsync();
 
             await Clients.Group($"ShoppingList_{shoppingList.Id}").DeleteShoppingListItemAsync(shoppingListItemId);
+        }
+
+        public async Task EditShoppingListItem(ShoppingListItemEditVm shoppingListItemVm)
+        {
+            var shoppingListItem = await _shoppingListItemService.GetAsync(shoppingListItemVm.Id);
+            if (shoppingListItem == null)
+                throw new NotFoundException("Shopping list item does not exist, or You don't have permissions to view it."); // TODO: Message
+
+            var shoppingList = await _shoppingListService.GetAsync(shoppingListItem.ShoppingListId, UserIdentityId);
+            if (shoppingList == null)
+                throw new NotFoundException("Shopping list does not exist, or You don't have permissions to view it."); // TODO: Message
+
+
+            shoppingListItem = _mapper.Map<ShoppingListItemEditVm, ShoppingListItem>(shoppingListItemVm);
+            _dbcontext.Update(shoppingListItem);
+            await _dbcontext.SaveChangesAsync();
+
+            var editedShoppingListItemVm = _mapper.Map<ShoppingListItem, ShoppingListItemVm>(shoppingListItem);
+
+            await Clients.Group($"ShoppingList_{shoppingList.Id}").UpdateShoppingListItemAsync(editedShoppingListItemVm);
         }
 
         public override async Task OnConnectedAsync()
