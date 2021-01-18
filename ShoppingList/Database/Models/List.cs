@@ -22,8 +22,8 @@ namespace ListNest.Database.Models
     {
         public void Configure(EntityTypeBuilder<List> builder)
         {
-            builder.HasKey(shoppingList => shoppingList.Id);
-            builder.Property(shoppingList => shoppingList.Name).IsRequired();
+            builder.HasKey(list => list.Id);
+            builder.Property(list => list.Name).IsRequired();
         }
     }
 }
