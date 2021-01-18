@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace ShoppingListApp.ViewModels
+namespace ListNest.ViewModels
 {
-    public class ShoppingListVm
+    public class ListVm
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public ICollection<UserVm> Users { get; set; }
-        public ICollection<ShoppingListItemVm> Items { get; set; }
+        public ICollection<ListItemVm> Items { get; set; }
     }
 }

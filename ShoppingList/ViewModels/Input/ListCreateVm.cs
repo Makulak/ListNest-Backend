@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingListApp.ViewModels.Input
+namespace ListNest.ViewModels.Input
 {
-    public class ShoppingListCreateVm
+    public class ListCreateVm
     {
         [Required]
         public string Name { get; set; }

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingListApp.ViewModels.Input
+namespace ListNest.ViewModels.Input
 {
-    public class ShoppingListItemEditVm
+    public class ListItemCreateVm
     {
         [Required]
-        public int Id { get; set; }
+        public int ListId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

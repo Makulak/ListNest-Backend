@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using PotatoServer.Database.Models;
-using ShoppingListApp.ViewModels;
+using ListNest.ViewModels;
 
-namespace ShoppingListApp.AutoMapper
+namespace ListNest.AutoMapper
 {
     public class UserProfile : Profile
     {

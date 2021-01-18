@@ -1,7 +1,7 @@
 ﻿
-namespace ShoppingListApp.ViewModels
+namespace ListNest.ViewModels
 {
-    public class ShoppingListItemVm
+    public class ListItemVm
     {
         public int Id { get; set; }
         public string Name { get; set; }

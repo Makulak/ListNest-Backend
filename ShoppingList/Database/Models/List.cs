@@ -4,13 +4,13 @@ using PotatoServer.Database.Models;
 using System;
 using System.Collections.Generic;
 
-namespace ShoppingListApp.Database.Models
+namespace ListNest.Database.Models
 {
-    public class ShoppingList : IBaseModel
+    public class List : IBaseModel
     {
         public string Name { get; set; }
-        public ICollection<ShoppingListItem> Items { get; set; }
-        public ICollection<UserShoppingList> Users { get; set; }
+        public ICollection<ListItem> Items { get; set; }
+        public ICollection<UserList> Users { get; set; }
 
         public int Id { get; set; }
         public DateTime? Created { get; set; }
@@ -18,9 +18,9 @@ namespace ShoppingListApp.Database.Models
         public bool IsDeleted { get; set; }
     }
 
-    public class ShoppingListConfiguration : IEntityTypeConfiguration<ShoppingList>
+    public class ListConfiguration : IEntityTypeConfiguration<List>
     {
-        public void Configure(EntityTypeBuilder<ShoppingList> builder)
+        public void Configure(EntityTypeBuilder<List> builder)
         {
             builder.HasKey(shoppingList => shoppingList.Id);
             builder.Property(shoppingList => shoppingList.Name).IsRequired();

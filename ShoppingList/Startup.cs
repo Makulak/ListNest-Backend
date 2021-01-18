@@ -10,13 +10,13 @@ using PotatoServer;
 using PotatoServer.Database.Models;
 using PotatoServer.Filters.HandleException;
 using PotatoServer.Filters.HandleExceptionHub;
-using ShoppingListApp.Database;
-using ShoppingListApp.Hubs;
-using ShoppingListApp.Services;
-using ShoppingListApp.Services.Implementations;
-using ShoppingListApp.Services.Interfaces;
+using ListNest.Database;
+using ListNest.Hubs;
+using ListNest.Services;
+using ListNest.Services.Implementations;
+using ListNest.Services.Interfaces;
 
-namespace ShoppingListApp
+namespace ListNest
 {
     public class Startup : BaseStartup
     {
@@ -41,16 +41,16 @@ namespace ShoppingListApp
                 hubOptions.AddFilter<HandleExceptionHubFilter>();
                 hubOptions.EnableDetailedErrors = IsDevelopement;
                 });
-            services.SetupIdentity<User, ShoppingListDbContext>(Configuration);
+            services.SetupIdentity<User, AppDbContext>(Configuration);
             services.SetupAuthentication(Configuration);
             //services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
-            services.AddDbContext<ShoppingListDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.EnableSensitiveDataLogging(IsDevelopement)
                  .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                builder => builder.MigrationsAssembly("ShoppingList")));
+                builder => builder.MigrationsAssembly("ListNest")));
 
-            services.AddTransient<IShoppingListService, ShoppingListService>();
-            services.AddTransient<IShoppingListItemService, ShoppingListItemService>();
+            services.AddTransient<IListService, ListService>();
+            services.AddTransient<IListItemService, ListItemService>();
             base.ConfigureServices(services);
         }
 
@@ -69,7 +69,7 @@ namespace ShoppingListApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ShoppingListHub>("/hubs/shopping-lists");
+                endpoints.MapHub<ListHub>("/hubs/lists");
             });
             base.Configure(app, env);
         }

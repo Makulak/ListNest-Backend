@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using ShoppingListApp.Database.Models;
-using ShoppingListApp.ViewModels;
+using ListNest.Database.Models;
+using ListNest.ViewModels;
 
-namespace ShoppingListApp.AutoMapper
+namespace ListNest.AutoMapper
 {
-    public class UserShoppingListProfile : Profile
+    public class UserListProfile : Profile
     {
-        public UserShoppingListProfile()
+        public UserListProfile()
         {
-            CreateMap<string, UserShoppingList>()
+            CreateMap<string, UserList>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src));
 
-            CreateMap<UserShoppingList, UserVm>()
+            CreateMap<UserList, UserVm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id))
                 .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.User.UserName));
         }

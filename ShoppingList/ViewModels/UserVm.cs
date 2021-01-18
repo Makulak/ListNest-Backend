@@ -1,4 +1,4 @@
-﻿namespace ShoppingListApp.ViewModels
+﻿namespace ListNest.ViewModels
 {
     public class UserVm
     {

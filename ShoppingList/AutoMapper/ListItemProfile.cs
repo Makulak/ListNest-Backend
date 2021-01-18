@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
-using ShoppingListApp.Database.Models;
-using ShoppingListApp.ViewModels;
-using ShoppingListApp.ViewModels.Input;
+using ListNest.Database.Models;
+using ListNest.ViewModels;
+using ListNest.ViewModels.Input;
 
-namespace ShoppingListApp.AutoMapper
+namespace ListNest.AutoMapper
 {
-    public class ShoppingListItemProfile : Profile
+    public class ListItemProfile : Profile
     {
-        public ShoppingListItemProfile()
+        public ListItemProfile()
         {
-            CreateMap<ShoppingListItem, ShoppingListItemVm>()
+            CreateMap<ListItem, ListItemVm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
 
-            CreateMap<ShoppingListItemCreateVm, ShoppingListItem>()
+            CreateMap<ListItemCreateVm, ListItem>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
         }

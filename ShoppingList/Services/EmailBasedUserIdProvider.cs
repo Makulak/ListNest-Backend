@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
 
-namespace ShoppingListApp.Services
+namespace ListNest.Services
 {
     public class EmailBasedUserIdProvider : IUserIdProvider
     {
