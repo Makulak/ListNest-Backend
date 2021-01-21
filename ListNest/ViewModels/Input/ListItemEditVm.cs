@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PotatoServer.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace ListNest.ViewModels.Input
 {
@@ -7,8 +8,10 @@ namespace ListNest.ViewModels.Input
         [Required]
         public int Id { get; set; }
         [Required]
+        [MaxLength(128)]
         public string Name { get; set; }
         [Required]
+        [Minimum(0)]
         public float Quantity { get; set; }
     }
 }

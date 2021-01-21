@@ -23,7 +23,7 @@ namespace ListNest.Database.Models
         public void Configure(EntityTypeBuilder<List> builder)
         {
             builder.HasKey(list => list.Id);
-            builder.Property(list => list.Name).IsRequired();
+            builder.Property(list => list.Name).HasMaxLength(128).IsRequired();
         }
     }
 }
