@@ -40,9 +40,9 @@ namespace ListNest.Controllers
                 .Include(list => list.Users)
                     .ThenInclude(userList => userList.User)
                 .Where(list => !list.IsDeleted && list.Users.Any(user => user.UserId == userId))
-                .GetPagedAsync<List, ListVm>(_mapper, skip, take);
+                .GetPagedAsync(skip, take);
 
-            return Ok(lists);
+            return Ok(_mapper.MapPagedViewModel<List, ListVm>(lists));
         }
 
         [HttpGet("{listId}")]

@@ -50,9 +50,9 @@ namespace ListNest.Hubs
 
             var items = await _dbcontext.ListItems
                 .Where(item => !item.IsDeleted && item.ListId == listId)
-                .GetPagedAsync<ListItem, ListItemVm>(_mapper, skip, take);
+                .GetPagedAsync(skip, take);
 
-            await Clients.Caller.UpdateListItemsAsync(items);
+            await Clients.Caller.UpdateListItemsAsync(_mapper.MapPagedViewModel<ListItem, ListItemVm>(items));
         }
 
         public async Task CreateListItem(ListItemCreateVm listItemVm)
