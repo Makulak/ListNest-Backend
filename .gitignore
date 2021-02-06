@@ -2,3 +2,5 @@
 .vs/
 ListNest/bin
 ListNest/obj
+ListNestTests/bin
+ListNestTests/obj
