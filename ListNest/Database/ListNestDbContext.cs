@@ -5,9 +5,9 @@ using ListNest.Database.Models;
 
 namespace ListNest.Database
 {
-    public class AppDbContext : CoreDatabaseContext<User>
+    public class ListNestDbContext : CoreDatabaseContext<User>
     {
-        public AppDbContext(DbContextOptions options) : base(options) { }
+        public ListNestDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<List> Lists { get; set; }
         public DbSet<ListItem> ListItems { get; set; }

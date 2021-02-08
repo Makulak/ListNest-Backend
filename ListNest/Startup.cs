@@ -41,10 +41,10 @@ namespace ListNest
                 hubOptions.AddFilter<HandleExceptionHubFilter>();
                 hubOptions.EnableDetailedErrors = IsDevelopement;
                 });
-            services.SetupIdentity<User, AppDbContext>(Configuration);
+            services.SetupIdentity<User, ListNestDbContext>(Configuration);
             services.SetupAuthentication(Configuration);
             //services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
-            services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<ListNestDbContext>(options =>
                 options.EnableSensitiveDataLogging(IsDevelopement)
                  .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 builder => builder.MigrationsAssembly("ListNest")));

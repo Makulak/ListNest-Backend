@@ -18,11 +18,11 @@ namespace ListNest.Controllers
     [ApiController]
     public class ListController : Controller
     {
-        private readonly AppDbContext _dbContext;
+        private readonly ListNestDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IListService _listService;
 
-        public ListController(AppDbContext dbContext,
+        public ListController(ListNestDbContext dbContext,
             IMapper mapper,
             IListService listService)
         {

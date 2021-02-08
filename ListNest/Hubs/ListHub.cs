@@ -17,12 +17,12 @@ namespace ListNest.Hubs
 {
     public partial class ListHub : Hub<IListItemClient>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly ListNestDbContext _dbcontext;
         private readonly IListService _listService;
         private readonly IListItemService _listItemService;
         private readonly IMapper _mapper;
 
-        public ListHub(AppDbContext dbcontext,
+        public ListHub(ListNestDbContext dbcontext,
             IListService listService,
             IListItemService listItemService,
             IMapper mapper)

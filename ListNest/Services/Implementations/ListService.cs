@@ -9,9 +9,9 @@ namespace ListNest.Services.Implementations
 {
     public class ListService : IListService
     {
-        public AppDbContext _dbContext { get; }
+        public ListNestDbContext _dbContext { get; }
 
-        public ListService(AppDbContext dbContext)
+        public ListService(ListNestDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListNest", "ListNest\ListNe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PotatoServerTests", "..\PotatoServer\PotatoServerTests\PotatoServerTests.csproj", "{CD1A0091-B3A0-4DB6-AC28-A6DB1FA9046D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListNestTests", "ListNestTests\ListNestTests.csproj", "{C3E80FEE-04FB-4D58-9850-65B0D264F37A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CD1A0091-B3A0-4DB6-AC28-A6DB1FA9046D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD1A0091-B3A0-4DB6-AC28-A6DB1FA9046D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD1A0091-B3A0-4DB6-AC28-A6DB1FA9046D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E80FEE-04FB-4D58-9850-65B0D264F37A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E80FEE-04FB-4D58-9850-65B0D264F37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E80FEE-04FB-4D58-9850-65B0D264F37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E80FEE-04FB-4D58-9850-65B0D264F37A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
