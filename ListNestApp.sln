@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PotatoServer", "..\PotatoServer\PotatoServer.csproj", "{E8B44CDE-00C8-45A2-8F32-0414EB975694}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListNest", "ListNest\ListNest.csproj", "{3E98ACE5-3EDC-47D9-84BB-C01E528056AC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PotatoServerTests", "..\PotatoServer\PotatoServerTests\PotatoServerTests.csproj", "{CD1A0091-B3A0-4DB6-AC28-A6DB1FA9046D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListNestTests", "ListNestTests\ListNestTests.csproj", "{C3E80FEE-04FB-4D58-9850-65B0D264F37A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListNestTests", "ListNestTests\ListNestTests.csproj", "{C3E80FEE-04FB-4D58-9850-65B0D264F37A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PotatoServer", "..\PotatoServer\PotatoServer\PotatoServer.csproj", "{1743C4E2-A16E-41C6-AA5A-3F145A4BB762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotatoServerTests.Core", "..\PotatoServer\PotatoServerTests.Core\PotatoServerTests.Core.csproj", "{7546C99C-455F-4406-91E8-8EF57A6F6E22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E8B44CDE-00C8-45A2-8F32-0414EB975694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8B44CDE-00C8-45A2-8F32-0414EB975694}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8B44CDE-00C8-45A2-8F32-0414EB975694}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8B44CDE-00C8-45A2-8F32-0414EB975694}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E98ACE5-3EDC-47D9-84BB-C01E528056AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E98ACE5-3EDC-47D9-84BB-C01E528056AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E98ACE5-3EDC-47D9-84BB-C01E528056AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +31,14 @@ Global
 		{C3E80FEE-04FB-4D58-9850-65B0D264F37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3E80FEE-04FB-4D58-9850-65B0D264F37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3E80FEE-04FB-4D58-9850-65B0D264F37A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1743C4E2-A16E-41C6-AA5A-3F145A4BB762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1743C4E2-A16E-41C6-AA5A-3F145A4BB762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1743C4E2-A16E-41C6-AA5A-3F145A4BB762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1743C4E2-A16E-41C6-AA5A-3F145A4BB762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7546C99C-455F-4406-91E8-8EF57A6F6E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7546C99C-455F-4406-91E8-8EF57A6F6E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7546C99C-455F-4406-91E8-8EF57A6F6E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7546C99C-455F-4406-91E8-8EF57A6F6E22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

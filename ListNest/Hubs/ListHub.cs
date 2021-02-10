@@ -52,7 +52,7 @@ namespace ListNest.Hubs
                 .Where(item => !item.IsDeleted && item.ListId == listId)
                 .GetPagedAsync(skip, take);
 
-            await Clients.Caller.UpdateListItemsAsync(_mapper.MapPagedViewModel<ListItem, ListItemVm>(items));
+            await Clients.Caller.UpdateListItemsAsync(_mapper.MapPagedViewModel<ListItem, ListItemVmResult>(items));
         }
 
         public async Task CreateListItem(ListItemCreateVm listItemVm)
@@ -66,7 +66,7 @@ namespace ListNest.Hubs
             await _dbcontext.ListItems.AddAsync(listItem);
             await _dbcontext.SaveChangesAsync();
 
-            var addedListItemVm = _mapper.Map<ListItem, ListItemVm>(listItem);
+            var addedListItemVm = _mapper.Map<ListItem, ListItemVmResult>(listItem);
 
             await Clients.Group($"List_{listItemVm.ListId}").AddListItemAsync(addedListItemVm);
         }
@@ -102,7 +102,7 @@ namespace ListNest.Hubs
             _dbcontext.Update(listItem);
             await _dbcontext.SaveChangesAsync();
 
-            var editedListItemVm = _mapper.Map<ListItem, ListItemVm>(listItem);
+            var editedListItemVm = _mapper.Map<ListItem, ListItemVmResult>(listItem);
 
             await Clients.Group($"List_{list.Id}").UpdateListItemAsync(editedListItemVm);
         }

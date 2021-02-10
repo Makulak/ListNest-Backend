@@ -42,7 +42,7 @@ namespace ListNest.Controllers
                 .Where(list => !list.IsDeleted && list.Users.Any(user => user.UserId == userId))
                 .GetPagedAsync(skip, take);
 
-            return Ok(_mapper.MapPagedViewModel<List, ListVm>(lists));
+            return Ok(_mapper.MapPagedViewModel<List, ListVmResult>(lists));
         }
 
         [HttpGet("{listId}")]
@@ -54,7 +54,7 @@ namespace ListNest.Controllers
             if (list == null)
                 throw new NotFoundException("List does not exist, or You don't have permissions to view it."); // TODO: Message
 
-            return Ok(_mapper.Map<ListVm>(list));
+            return Ok(_mapper.Map<ListVmResult>(list));
         }
 
         [HttpPost]
@@ -68,7 +68,7 @@ namespace ListNest.Controllers
             var addedList = await _dbContext.Lists.AddAsync(list);
             await _dbContext.SaveChangesAsync();
 
-            return Ok(_mapper.Map<ListVm>(addedList.Entity));
+            return Ok(_mapper.Map<ListVmResult>(addedList.Entity));
         }
 
         [HttpDelete("{listId}")]

@@ -6,9 +6,9 @@ namespace ListNest.Hubs.Clients
 {
     public interface IListItemClient
     {
-        Task UpdateListItemsAsync(PagedVmResult<ListItemVm> listItems);
-        Task AddListItemAsync(ListItemVm listItem);
-        Task UpdateListItemAsync(ListItemVm listItem);
+        Task UpdateListItemsAsync(PagedVmResult<ListItemVmResult> listItems);
+        Task AddListItemAsync(ListItemVmResult listItem);
+        Task UpdateListItemAsync(ListItemVmResult listItem);
         Task DeleteListItemAsync(int laistItemId);
     }
 }
