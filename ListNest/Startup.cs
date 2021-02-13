@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR;
@@ -14,6 +13,9 @@ using ListNest.Database;
 using ListNest.Hubs;
 using ListNest.Services.Implementations;
 using ListNest.Services.Interfaces;
+using System;
+using Microsoft.AspNetCore.Identity;
+using PotatoServer.Database;
 
 namespace ListNest
 {
@@ -41,7 +43,7 @@ namespace ListNest
                 hubOptions.AddFilter<HandleExceptionHubFilter>();
                 hubOptions.EnableDetailedErrors = IsDevelopement;
             });
-            services.SetupIdentity<User, ListNestDbContext>(Configuration);
+            services.SetupIdentity<PotatoUser, ListNestDbContext>(Configuration);
             services.SetupAuthentication(Configuration);
             //services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
             services.AddDbContext<ListNestDbContext>(options =>
@@ -55,7 +57,7 @@ namespace ListNest
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public override void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
@@ -72,7 +74,10 @@ namespace ListNest
                 endpoints.MapHub<ListHub>("/hubs/lists");
             });
 
-            base.Configure(app, env);
+            var userManager = serviceProvider.GetService(typeof(UserManager<PotatoUser>)) as UserManager<PotatoUser>;
+            DatabaseSeeder.AddAdmin(userManager, "admin@admin.pl", "Admin", "Admin");
+
+            base.Configure(app, env, serviceProvider);
         }
     }
 }

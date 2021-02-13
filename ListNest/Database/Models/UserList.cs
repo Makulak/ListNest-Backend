@@ -6,7 +6,7 @@ namespace ListNest.Database.Models
 {
     public class UserList
     {
-        public User User { get; set; }
+        public PotatoUser User { get; set; }
         public List List { get; set; }
 
         public string UserId { get; set; }

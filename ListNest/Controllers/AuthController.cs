@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using PotatoServer;
@@ -8,10 +8,11 @@ using PotatoServer.Database.Models;
 
 namespace ListNest.Controllers
 {
+    [ApiController]
     [Route("api/auth")]
-    public class AuthController : BaseAuthController<User>
+    public class AuthController : BaseAuthController<PotatoUser>
     {
-        public AuthController(UserManager<User> userManager, IStringLocalizer<SharedResources> localizer, IConfiguration configuration) : base(userManager, localizer, configuration)
+        public AuthController(UserManager<PotatoUser> userManager, IStringLocalizer<SharedResources> localizer, IConfiguration configuration) : base(userManager, localizer, configuration)
         {
         }
     }

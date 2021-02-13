@@ -5,7 +5,7 @@ using ListNest.Database.Models;
 
 namespace ListNest.Database
 {
-    public class ListNestDbContext : BaseDbContext<User>
+    public class ListNestDbContext : BaseDbContext<PotatoUser>
     {
         public ListNestDbContext(DbContextOptions options) : base(options) { }
 

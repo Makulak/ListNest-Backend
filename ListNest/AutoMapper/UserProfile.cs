@@ -8,7 +8,7 @@ namespace ListNest.AutoMapper
     {
         public UserProfile()
         {
-            CreateMap<User, UserVmResult>()
+            CreateMap<PotatoUser, UserVmResult>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.UserName));
         }
