@@ -74,8 +74,8 @@ namespace ListNest
                 endpoints.MapHub<ListHub>("/hubs/lists");
             });
 
-            var userManager = serviceProvider.GetService(typeof(UserManager<PotatoUser>)) as UserManager<PotatoUser>;
-            DatabaseSeeder.AddAdmin(userManager, "admin@admin.pl", "Admin", "Admin");
+            var userManager = serviceProvider.GetService<UserManager<PotatoUser>>();
+            DatabaseSeeder.AddAdminAsync(userManager, "admin@admin.pl", "Admin", "Admin").GetAwaiter().GetResult();
 
             base.Configure(app, env, serviceProvider);
         }
