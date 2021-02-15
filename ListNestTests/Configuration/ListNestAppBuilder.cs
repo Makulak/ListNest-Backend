@@ -7,6 +7,17 @@ namespace ListNestTests.Configuration
 {
     internal class ListNestAppBuilder : AppBuilder<Startup, ListNestDbContext>
     {
-        public ListNestAppBuilder(WebApplicationFactory<Startup> factory) : base(factory) { }
+        private readonly DataSeeder _seeder;
+
+        public ListNestAppBuilder(WebApplicationFactory<Startup> factory) : base(factory)
+        {
+            _seeder = new DataSeeder();
+        }
+
+        public ListNestAppBuilder CreateSampleDataset()
+        {
+            _actions.Add(() => _seeder.CreateSampleDataset(_dbContext));
+            return this;
+        }
     }
 }

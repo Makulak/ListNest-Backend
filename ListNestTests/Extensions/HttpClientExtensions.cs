@@ -1,6 +1,6 @@
 ﻿using PotatoServer.ViewModels;
 using PotatoServer.ViewModels.Core.User;
-using PotatoServerTestsCore;
+using PotatoServerTestsCore.Exceptions;
 using PotatoServerTestsCore.Extensions;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -22,7 +22,7 @@ namespace ListNestTests.Extensions
             if (response.IsSuccessStatusCode)
                 return response.Value.Token;
             else
-                throw new TestExecutionException($"{response.StatusCode} - {response.ValueString}");
+                throw new TestExecutionException($"{response.StatusCode}: {response.ValueString}");
         }
     }
 }
