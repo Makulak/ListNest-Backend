@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PotatoServer.Database.Models;
+using ListNest.Database.Models;
 using ListNest.ViewModels;
 
 namespace ListNest.AutoMapper
@@ -8,7 +8,7 @@ namespace ListNest.AutoMapper
     {
         public UserProfile()
         {
-            CreateMap<PotatoUser, UserVmResult>()
+            CreateMap<ListNestUser, UserVmResult>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.UserName));
         }

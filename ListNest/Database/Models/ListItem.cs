@@ -8,7 +8,7 @@ namespace ListNest.Database.Models
     public class ListItem : IBaseModel
     {
         public string Name { get; set; }
-        public float Quantity { get; set; }
+        public float? Quantity { get; set; }
         public int ListId { get; set; }
 
         public int Id { get; set; }
@@ -23,7 +23,7 @@ namespace ListNest.Database.Models
         {
             builder.HasKey(listItem => listItem.Id);
             builder.Property(listItem => listItem.Name).HasMaxLength(128).IsRequired();
-            builder.Property(listItem => listItem.Quantity).HasDefaultValue(1).IsRequired();
+            builder.Property(listItem => listItem.Quantity);
         }
     }
 }

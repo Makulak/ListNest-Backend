@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PotatoServer;
-using PotatoServer.Database.Models;
 using PotatoServer.Filters.HandleException;
 using PotatoServer.Filters.HandleExceptionHub;
 using ListNest.Database;
@@ -16,6 +15,7 @@ using ListNest.Services.Interfaces;
 using System;
 using Microsoft.AspNetCore.Identity;
 using PotatoServer.Database;
+using ListNest.Database.Models;
 
 namespace ListNest
 {
@@ -43,7 +43,7 @@ namespace ListNest
                 hubOptions.AddFilter<HandleExceptionHubFilter>();
                 hubOptions.EnableDetailedErrors = IsDevelopement;
             });
-            services.SetupIdentity<PotatoUser, ListNestDbContext>(Configuration);
+            services.SetupIdentity<ListNestUser, ListNestDbContext>(Configuration);
             services.SetupAuthentication(Configuration);
             //services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
             services.AddDbContext<ListNestDbContext>(options =>
@@ -74,7 +74,7 @@ namespace ListNest
                 endpoints.MapHub<ListHub>("/hubs/lists");
             });
 
-            var userManager = serviceProvider.GetService<UserManager<PotatoUser>>();
+            var userManager = serviceProvider.GetService<UserManager<ListNestUser>>();
             DatabaseSeeder.AddAdminAsync(userManager, "admin@admin.pl", "Admin", "Admin").GetAwaiter().GetResult();
 
             base.Configure(app, env, serviceProvider);

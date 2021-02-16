@@ -6,7 +6,6 @@ namespace ListNestTests.Configuration
     {
         public void CreateSampleDataset(ListNestDbContext dbContext)
         {
-            
         }
     }
 }

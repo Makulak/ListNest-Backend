@@ -9,6 +9,11 @@ namespace ListNestTests.Extensions
 {
     public static class HttpClientExtensions
     {
+        public async static Task<string> GetAdminTokenAsync(this HttpClient client)
+        {
+            return await client.GetUserTokenAsync("admin@admin.pl", "Admin");
+        }
+
         public async static Task<string> GetUserTokenAsync(this HttpClient client, string email, string password)
         {
             var loginVm = new UserSignInVm

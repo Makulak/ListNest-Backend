@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PotatoServer.Database;
-using PotatoServer.Database.Models;
 using ListNest.Database.Models;
 
 namespace ListNest.Database
 {
-    public class ListNestDbContext : BaseDbContext<PotatoUser>
+    public class ListNestDbContext : BaseDbContext<ListNestUser>
     {
         public ListNestDbContext(DbContextOptions options) : base(options) { }
 

@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PotatoServer.Database.Models;
 
 namespace ListNest.Database.Models
 {
     public class UserList
     {
-        public PotatoUser User { get; set; }
+        public ListNestUser User { get; set; }
         public List List { get; set; }
 
         public string UserId { get; set; }
