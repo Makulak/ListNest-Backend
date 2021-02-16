@@ -10,7 +10,7 @@ namespace ListNest.Database.Models
     {
         public string Name { get; set; }
         public ICollection<ListItem> Items { get; set; }
-        public ICollection<UserList> Users { get; set; }
+        public ICollection<UserList> AssignedUsers { get; set; }
 
         public int Id { get; set; }
         public DateTime? Created { get; set; }

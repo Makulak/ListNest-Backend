@@ -41,7 +41,9 @@ namespace PotatoServerTests
                         .CreateSampleDataset()
                         .CreateClient();
 
-            var response = await client.GetUserTokenAsync("admin@admin.pl1", "Admin");
+            var token = await client.GetUserTokenAsync(DbValues.Users[0].Email, DbValues.DefaultPassword);
+
+            var response = await client.DoGetAsync<PagedVmResult<ListVmResult>>(baseUrl, token);
         }
 
         [Fact]

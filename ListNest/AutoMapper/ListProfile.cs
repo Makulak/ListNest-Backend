@@ -12,11 +12,11 @@ namespace ListNest.AutoMapper
             CreateMap<List, ListVmResult>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.Users));
+                .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.AssignedUsers));
 
             CreateMap<ListCreateVm, List>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.UserIds));
+                .ForMember(dest => dest.AssignedUsers, opt => opt.MapFrom(src => src.UserIds));
         }
     }
 }

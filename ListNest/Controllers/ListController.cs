@@ -37,9 +37,9 @@ namespace ListNest.Controllers
             var userId = User.FindFirstValue("UserId");
 
             var lists = await _dbContext.Lists
-                .Include(list => list.Users)
+                .Include(list => list.AssignedUsers)
                     .ThenInclude(userList => userList.User)
-                .Where(list => !list.IsDeleted && list.Users.Any(user => user.UserId == userId))
+                .Where(list => !list.IsDeleted && list.AssignedUsers.Any(user => user.UserId == userId))
                 .GetPagedAsync(skip, take);
 
             return Ok(_mapper.MapPagedViewModel<List, ListVmResult>(lists));
@@ -63,7 +63,7 @@ namespace ListNest.Controllers
             var userId = User.FindFirstValue("UserId");
             var list = _mapper.Map<List>(listVm);
             // Adding current user
-            list.Users.Add(new UserList { UserId = userId });
+            list.AssignedUsers.Add(new UserList { UserId = userId });
 
             var addedList = await _dbContext.Lists.AddAsync(list);
             await _dbContext.SaveChangesAsync();

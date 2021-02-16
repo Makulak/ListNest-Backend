@@ -1,11 +1,12 @@
 ﻿using ListNest;
 using ListNest.Database;
+using ListNest.Database.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using PotatoServerTestsCore.Builders;
 
 namespace ListNestTests.Configuration
 {
-    internal class ListNestAppBuilder : AppBuilder<Startup, ListNestDbContext>
+    internal class ListNestAppBuilder : AppBuilder<Startup, ListNestDbContext, ListNestUser>
     {
         private readonly DataSeeder _seeder;
 
@@ -16,7 +17,9 @@ namespace ListNestTests.Configuration
 
         public ListNestAppBuilder CreateSampleDataset()
         {
-            _actions.Add(() => _seeder.CreateSampleDataset(_dbContext));
+            CreateUsers(DbValues.Users, DbValues.DefaultPassword);
+            AddAction(() => _seeder.CreateSampleDataset(_dbContext));
+            
             return this;
         }
     }
