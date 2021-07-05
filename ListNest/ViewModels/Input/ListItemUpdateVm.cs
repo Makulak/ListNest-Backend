@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ListNest.ViewModels.Input
 {
-    public class ListItemEditVm
+    public class ListItemUpdateVm
     {
         [Required]
         public int Id { get; set; }
