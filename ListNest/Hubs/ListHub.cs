@@ -24,7 +24,7 @@ namespace ListNest.Hubs
 
         public async Task GetListItems(int listId, int? skip, int? take)
         {
-            var list = await _listService.GetAsync(listId, UserIdentityId);
+            var list = await _listService.GetSingleAsync(listId, UserIdentityId);
             if (list == null)
                 throw new NotFoundException("List does not exist, or You don't have permissions to view it."); // TODO: Message
 
@@ -32,12 +32,12 @@ namespace ListNest.Hubs
                 .Where(item => !item.IsDeleted && item.ListId == listId)
                 .GetPagedAsync(skip, take);
 
-            await Clients.Caller.UpdateListItemsAsync(_mapper.MapPagedViewModel<ListItem, ListItemVmResult>(items));
+            await Clients.Caller.UpdateListItemsAsync(_mapper.MapPagedViewModel<ListItem, ListItemApi>(items));
         }
 
         public async Task CreateListItem(ListItemCreateVm listItemVm)
         {
-            var list = await _listService.GetAsync(listItemVm.ListId, UserIdentityId);
+            var list = await _listService.GetSingleAsync(listItemVm.ListId, UserIdentityId);
             if (list == null)
                 throw new NotFoundException("List does not exist, or You don't have permissions to view it."); // TODO: Message
 
@@ -46,7 +46,7 @@ namespace ListNest.Hubs
             await _dbcontext.ListItems.AddAsync(listItem);
             await _dbcontext.SaveChangesAsync();
 
-            var addedListItemVm = _mapper.Map<ListItem, ListItemVmResult>(listItem);
+            var addedListItemVm = _mapper.Map<ListItem, ListItemApi>(listItem);
 
             await Clients.Group($"List_{listItemVm.ListId}").AddListItemAsync(addedListItemVm);
         }
@@ -57,7 +57,7 @@ namespace ListNest.Hubs
             if (listItem == null)
                 throw new NotFoundException("List item does not exist, or You don't have permissions to view it."); // TODO: Message
 
-            var list = await _listService.GetAsync(listItem.ListId, UserIdentityId);
+            var list = await _listService.GetSingleAsync(listItem.ListId, UserIdentityId);
             if (list == null)
                 throw new NotFoundException("List does not exist, or You don't have permissions to view it."); // TODO: Message
 
@@ -74,7 +74,7 @@ namespace ListNest.Hubs
             if (listItem == null)
                 throw new NotFoundException("List item does not exist, or You don't have permissions to view it."); // TODO: Message
 
-            var list = await _listService.GetAsync(listItem.ListId, UserIdentityId);
+            var list = await _listService.GetSingleAsync(listItem.ListId, UserIdentityId);
             if (list == null)
                 throw new NotFoundException("List does not exist, or You don't have permissions to view it."); // TODO: Message
 
@@ -82,7 +82,7 @@ namespace ListNest.Hubs
             _dbcontext.Update(listItem);
             await _dbcontext.SaveChangesAsync();
 
-            var editedListItemVm = _mapper.Map<ListItem, ListItemVmResult>(listItem);
+            var editedListItemVm = _mapper.Map<ListItem, ListItemApi>(listItem);
 
             await Clients.Group($"List_{list.Id}").UpdateListItemAsync(editedListItemVm);
         }

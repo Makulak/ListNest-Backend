@@ -16,14 +16,14 @@ namespace ListNest.Services.Implementations
             _dbContext = dbContext;
         }
 
-        public async Task<List> GetAsync(int listId, string userId)
+        public async Task<List> GetSingleAsync(int listId, string userId)
         {
             return await _dbContext.Lists
                 .Include(list => list.AssignedUsers)
                     .ThenInclude(userList => userList.User)
                 .Where(list => !list.IsDeleted &&
-                                       list.Id == listId &&
-                                       list.AssignedUsers.Any(user => user.UserId == userId))
+                                list.Id == listId &&
+                                list.AssignedUsers.Any(user => user.UserId == userId))
                 .SingleOrDefaultAsync();
         }
     }

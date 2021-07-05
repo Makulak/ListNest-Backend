@@ -1,7 +1,7 @@
 ﻿
 namespace ListNest.ViewModels
 {
-    public class ListItemVmResult
+    public class ListItemApi
     {
         public int Id { get; set; }
         public string Name { get; set; }

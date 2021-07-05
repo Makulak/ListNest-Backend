@@ -9,6 +9,7 @@ namespace ListNest.Database
         public ListNestDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<List> Lists { get; set; }
+        public DbSet<Board> Boards { get; set; }
         public DbSet<ListItem> ListItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -16,6 +17,8 @@ namespace ListNest.Database
             builder.ApplyConfiguration(new ListConfiguration());
             builder.ApplyConfiguration(new ListItemConfiguration());
             builder.ApplyConfiguration(new UserListConfiguration());
+            builder.ApplyConfiguration(new UserBoardConfiguration());
+            builder.ApplyConfiguration(new BoardConfiguration());
 
             base.OnModelCreating(builder);
         }

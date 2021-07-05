@@ -8,7 +8,7 @@ using ListNest.ViewModels;
 using PotatoServerTestsCore.Asserts;
 using ListNestTests.Extensions;
 
-namespace PotatoServerTests
+namespace PotatoServerTests.Tests.Controllers
 {
     public class GetListsTests : IClassFixture<ListNestWebApplicationFactory>
     {
@@ -43,7 +43,7 @@ namespace PotatoServerTests
 
             var token = await client.GetUserTokenAsync(DbValues.Users[0].Email, DbValues.DefaultPassword);
 
-            var response = await client.DoGetAsync<PagedVmResult<ListVmResult>>(baseUrl, token);
+            var response = await client.DoGetAsync<PagedModel<ListApi>>(baseUrl, token);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace PotatoServerTests
                         .CreateClient();
 
             // Act
-            var response = await client.DoGetAsync<PagedVmResult<ListVmResult>>(baseUrl);
+            var response = await client.DoGetAsync<PagedModel<ListApi>>(baseUrl);
 
             // Assert
             PotatoAssert.EqualStatusCode(System.Net.HttpStatusCode.Unauthorized, response);

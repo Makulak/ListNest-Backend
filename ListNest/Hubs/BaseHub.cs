@@ -13,16 +13,19 @@ namespace ListNest.Hubs
         private readonly ListNestDbContext _dbcontext;
         private readonly IListService _listService;
         private readonly IListItemService _listItemService;
+        private readonly IBoardService _boardService;
         private readonly IMapper _mapper;
 
         public ListNestHub(ListNestDbContext dbcontext,
             IListService listService,
             IListItemService listItemService,
+            IBoardService boardService,
             IMapper mapper)
         {
             _dbcontext = dbcontext;
             _listService = listService;
             _listItemService = listItemService;
+            _boardService = boardService;
             _mapper = mapper;
         }
 

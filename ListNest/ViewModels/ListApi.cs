@@ -2,11 +2,11 @@
 
 namespace ListNest.ViewModels
 {
-    public class ListVmResult
+    public class ListApi
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<UserVmResult> Users { get; set; }
-        public ICollection<ListItemVmResult> Items { get; set; }
+        public ICollection<UserApi> Users { get; set; }
+        public ICollection<ListItemApi> Items { get; set; }
     }
 }

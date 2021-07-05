@@ -6,9 +6,11 @@ namespace ListNest.Hubs.Clients
 {
     public interface IListNestClient
     {
-        Task UpdateListItemsAsync(PagedVmResult<ListItemVmResult> listItems);
-        Task AddListItemAsync(ListItemVmResult listItem);
-        Task UpdateListItemAsync(ListItemVmResult listItem);
+        Task UpdateBoardsAsync(PagedModel<BoardApi> listItems);
+
+        Task UpdateListItemsAsync(PagedModel<ListItemApi> listItems);
+        Task AddListItemAsync(ListItemApi listItem);
+        Task UpdateListItemAsync(ListItemApi listItem);
         Task DeleteListItemAsync(int laistItemId);
     }
 }

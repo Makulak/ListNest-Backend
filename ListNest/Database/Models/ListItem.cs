@@ -16,7 +16,7 @@ namespace ListNest.Database.Models
         {
             builder.HasKey(listItem => listItem.Id);
             builder.Property(listItem => listItem.Name).HasMaxLength(128).IsRequired();
-            builder.Property(listItem => listItem.Description).HasMaxLength(255).IsRequired();
+            builder.Property(listItem => listItem.Description).HasMaxLength(255);
         }
     }
 }

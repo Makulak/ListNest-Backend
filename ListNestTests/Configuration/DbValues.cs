@@ -25,9 +25,9 @@ namespace ListNestTests.Configuration
 
         public static ListItem[] ListItems = new[]
         {
-            new ListItem { Id=1, ListId=1, Name="Item1", Quantity=1, Created = defaultDateTime },
-            new ListItem { Id=2, ListId=1, Name="Item2", Quantity=2, Created = defaultDateTime },
-            new ListItem { Id=3, ListId=1, Name="Item3", Quantity=3, Created = defaultDateTime,
+            new ListItem { Id=1, ListId=1, Name="Item1", Created = defaultDateTime },
+            new ListItem { Id=2, ListId=1, Name="Item2", Created = defaultDateTime },
+            new ListItem { Id=3, ListId=1, Name="Item3", Created = defaultDateTime,
                 Changed = DateTime.Parse("02-01-2021"), IsDeleted = true }
         };
     }

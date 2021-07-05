@@ -9,7 +9,7 @@ namespace ListNest.AutoMapper
     {
         public ListItemProfile()
         {
-            CreateMap<ListItem, ListItemVmResult>();
+            CreateMap<ListItem, ListItemApi>();
             CreateMap<ListItemCreateVm, ListItem>();
         }
     }

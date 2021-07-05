@@ -42,19 +42,19 @@ namespace ListNest.Controllers
                 .Where(list => !list.IsDeleted && list.AssignedUsers.Any(user => user.UserId == userId))
                 .GetPagedAsync(skip, take);
 
-            return Ok(_mapper.MapPagedViewModel<List, ListVmResult>(lists));
+            return Ok(_mapper.MapPagedViewModel<List, ListApi>(lists));
         }
 
         [HttpGet("{listId}")]
         public async Task<IActionResult> GetList(int listId)
         {
             var userId = User.FindFirstValue("UserId");
-            var list = await _listService.GetAsync(listId, userId);
+            var list = await _listService.GetSingleAsync(listId, userId);
 
             if (list == null)
                 throw new NotFoundException("List does not exist, or You don't have permissions to view it."); // TODO: Message
 
-            return Ok(_mapper.Map<ListVmResult>(list));
+            return Ok(_mapper.Map<ListApi>(list));
         }
 
         [HttpPost]
@@ -68,14 +68,14 @@ namespace ListNest.Controllers
             var addedList = await _dbContext.Lists.AddAsync(list);
             await _dbContext.SaveChangesAsync();
 
-            return Ok(_mapper.Map<ListVmResult>(addedList.Entity));
+            return Ok(_mapper.Map<ListApi>(addedList.Entity));
         }
 
         [HttpDelete("{listId}")]
         public async Task<IActionResult> DeleteList(int listId)
         {
             var userId = User.FindFirstValue("UserId");
-            var list = await _listService.GetAsync(listId, userId);
+            var list = await _listService.GetSingleAsync(listId, userId);
 
             if (list == null)
                 throw new NotFoundException("List does not exist, or You don't have permissions to view it."); // TODO: Message

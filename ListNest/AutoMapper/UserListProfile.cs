@@ -11,8 +11,7 @@ namespace ListNest.AutoMapper
             CreateMap<string, UserList>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src));
 
-            CreateMap<UserList, UserVmResult>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id))
+            CreateMap<UserList, UserApi>()
                 .ForMember(dest => dest.Login, opt => opt.MapFrom(src => src.User.UserName));
         }
     }
