@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ListNest.Hubs.Clients
 {
-    public interface IListItemClient
+    public interface IListNestClient
     {
         Task UpdateListItemsAsync(PagedVmResult<ListItemVmResult> listItems);
         Task AddListItemAsync(ListItemVmResult listItem);

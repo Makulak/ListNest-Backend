@@ -6,5 +6,6 @@ namespace ListNest.Database.Models
     public class ListNestUser : PotatoUser
     {
         public ICollection<UserList> AssignedLists { get; set; }
+        public ICollection<UserBoard> AssignedBoards { get; set; }
     }
 }

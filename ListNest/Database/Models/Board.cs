@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 namespace ListNest.Database.Models
 {
-    public class List : BaseEntity
+    public class Board : BaseEntity
     {
         public string Name { get; set; }
-        public ICollection<ListItem> Items { get; set; }
-        public ICollection<UserList> AssignedUsers { get; set; }
+        public ICollection<List> Lists { get; set; }
+        public ICollection<UserBoard> AssignedUsers { get; set; }
     }
 
-    public class ListConfiguration : IEntityTypeConfiguration<List>
+    public class BoardConfiguration : IEntityTypeConfiguration<Board>
     {
-        public void Configure(EntityTypeBuilder<List> builder)
+        public void Configure(EntityTypeBuilder<Board> builder)
         {
             builder.HasKey(list => list.Id);
             builder.Property(list => list.Name).HasMaxLength(128).IsRequired();

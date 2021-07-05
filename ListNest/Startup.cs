@@ -71,7 +71,7 @@ namespace ListNest
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ListHub>("/hubs/lists");
+                endpoints.MapHub<ListNestHub>("/hubs/lists");
             });
 
             var userManager = serviceProvider.GetService<UserManager<ListNestUser>>();

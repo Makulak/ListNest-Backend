@@ -1,42 +1,22 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using PotatoServer.Exceptions;
 using PotatoServer.Helpers.Extensions;
-using ListNest.Database;
 using ListNest.Database.Models;
-using ListNest.Services.Interfaces;
 using ListNest.ViewModels;
 using ListNest.ViewModels.Input;
-using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using ListNest.Hubs.Clients;
 
 namespace ListNest.Hubs
 {
-    public partial class ListHub : Hub<IListItemClient>
+    public partial class ListNestHub : Hub<IListNestClient>
     {
-        private readonly ListNestDbContext _dbcontext;
-        private readonly IListService _listService;
-        private readonly IListItemService _listItemService;
-        private readonly IMapper _mapper;
-
-        public ListHub(ListNestDbContext dbcontext,
-            IListService listService,
-            IListItemService listItemService,
-            IMapper mapper)
-        {
-            _dbcontext = dbcontext;
-            _listService = listService;
-            _listItemService = listItemService;
-            _mapper = mapper;
-        }
-
         public async Task EnterList(int listId)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, $"List_{listId}");
         }
+
         public async Task LeaveList(int listId)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"List_{listId}");
@@ -106,18 +86,5 @@ namespace ListNest.Hubs
 
             await Clients.Group($"List_{list.Id}").UpdateListItemAsync(editedListItemVm);
         }
-
-        public override async Task OnConnectedAsync()
-        {
-            await base.OnConnectedAsync();
-        }
-
-        public override async Task OnDisconnectedAsync(Exception exception)
-        {
-            await base.OnDisconnectedAsync(exception);
-        }
-
-        private string UserIdentityId => ((ClaimsIdentity)Context.User.Identity).Claims.SingleOrDefault(claim => claim.Type == "UserId").Value;
-        private string UserIdentityName => Context.User.Identity.Name;
     }
 }

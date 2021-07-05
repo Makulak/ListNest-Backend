@@ -9,14 +9,8 @@ namespace ListNest.AutoMapper
     {
         public ListItemProfile()
         {
-            CreateMap<ListItem, ListItemVmResult>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
-
-            CreateMap<ListItemCreateVm, ListItem>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+            CreateMap<ListItem, ListItemVmResult>();
+            CreateMap<ListItemCreateVm, ListItem>();
         }
     }
 }
